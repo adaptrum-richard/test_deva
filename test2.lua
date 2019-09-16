@@ -1,8 +1,8 @@
 
-function popen_read1()
-	local cmd = "ls -al";
+function popen_read2()
+	local cmd = "ps -ax";
 	local fp = io.popen(cmd);
-	local tmp = ''
+	local tmp = '';
 	if fp then
 		tmp = fp:read();
 		fp:close();
@@ -12,4 +12,4 @@ function popen_read1()
 end
 
 
-result = popen_read1();
+result = popen_read2();

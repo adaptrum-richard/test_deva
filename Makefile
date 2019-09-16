@@ -1,6 +1,6 @@
 EXEC=test
 all: $(EXEC)
 $(EXEC): clean
-	gcc -o test test.c -llua -lm -ldl
+	gcc -g -o test test.c -llua -lm -ldl -lpthread
 clean:
 	rm -rf test

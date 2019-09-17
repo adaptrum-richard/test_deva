@@ -76,7 +76,7 @@ void *pthread_t2(void *id)
 
 void *pthread_t3(void *id)
 {
-#define FILE_NAME "/tmp/temp"
+#define FILE_NAME3 "/tmp/temp3"
 	printf("\n t3 running, pid = %d", gettid());
 	int count = 0;
 	FILE*  fd = NULL;
@@ -84,7 +84,7 @@ void *pthread_t3(void *id)
 	int w_len = 0;
 	while(1)
 	{	
-		fd = fopen(FILE_NAME, "w+");
+		fd = fopen(FILE_NAME3, "w+");
 		if(!fd)
 		{
 			printf("error is %s\n",strerror(errno));
@@ -95,9 +95,63 @@ void *pthread_t3(void *id)
 		w_len = fwrite(b, 1, strlen(b), fd);
 		//printf("w_len = %d, b len = %d\n", w_len, strlen(b));
 		my_sleep(0,1000*200);
-		//fflush(fd);
+		fflush(fd);
 		fclose(fd);
-		//fflush(NULL);
+		fflush(NULL);
+	}
+}
+
+void *pthread_t5(void *id)
+{
+#define FILE_NAME5 "/tmp/temp5"
+	printf("\n t4 running, pid = %d", gettid());
+	int count = 0;
+	FILE*  fd = NULL;
+	char b[1024] = {0};
+	int w_len = 0;
+	while(1)
+	{	
+		fd = fopen(FILE_NAME5, "w+");
+		if(!fd)
+		{
+			printf("error is %s\n",strerror(errno));
+			my_sleep(1,0);
+			continue;
+		}
+		snprintf(b,sizeof(b) ,"%daaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbccccccccccccccccccccccc\n", count++);
+		w_len = fwrite(b, 1, strlen(b), fd);
+		//printf("w_len = %d, b len = %d\n", w_len, strlen(b));
+		my_sleep(0,1000*200);
+		fflush(fd);
+		fclose(fd);
+		fflush(NULL);
+	}
+}
+
+void *pthread_t6(void *id)
+{
+#define FILE_NAME6 "/tmp/temp6"
+	printf("\n t5 running, pid = %d", gettid());
+	int count = 0;
+	FILE*  fd = NULL;
+	char b[1024] = {0};
+	int w_len = 0;
+	while(1)
+	{	
+		fd = fopen(FILE_NAME6, "w+");
+		if(!fd)
+		{
+			printf("error is %s\n",strerror(errno));
+			my_sleep(1,0);
+			continue;
+		}
+		snprintf(b,sizeof(b) ,"%daaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbccccccccccccccccccccccc\n", count++);
+		w_len = fwrite(b, 1, strlen(b), fd);
+		//printf("w_len = %d, b len = %d\n", w_len, strlen(b));
+		my_sleep(0,1000*200);
+		fflush(fd);
+		fclose(fd);
+		fflush(NULL);
 	}
 }
 
@@ -127,8 +181,8 @@ void *pthread_t4(void *id)
 	}
 }
 
-#define NUMBER_OF_THREADS 4
-void* (*threads[NUMBER_OF_THREADS]) (void*) = { pthread_t1, pthread_t2, pthread_t3, pthread_t4};
+#define NUMBER_OF_THREADS 6
+void* (*threads[NUMBER_OF_THREADS]) (void*) = { pthread_t1, pthread_t2, pthread_t3, pthread_t4,pthread_t5,pthread_t6};
 pthread_t tid[NUMBER_OF_THREADS];
 int main() 
 {
